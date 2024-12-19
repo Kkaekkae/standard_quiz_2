@@ -31,7 +31,6 @@ public class Order {
      * Entity 가 생성되는 시점에 createdAt, status 를 설정해주세요!<br/><br/>
      * 조건: createdAt은 현재시간(LocalDateTime.now()) 으로 설정<br/>
      * 조건: status 는 "PENDING" 으로 설정<br/>
-     *
      * @return @PrePersist 어노테이션을 사용하여 객체가 생성되는 시점에 필드에 값을 추가합니다.
      */
 
