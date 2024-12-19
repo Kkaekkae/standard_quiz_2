@@ -1,11 +1,7 @@
 package com.sparta.jpaquiz.entity;
 
 import com.sparta.jpaquiz.dto.OrderDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,8 +33,10 @@ public class Order {
      * @return @PrePersist 어노테이션을 사용하여 객체가 생성되는 시점에 필드에 값을 추가합니다.
      */
 
+    @PrePersist
     public void prePersist() {
-        ...
+        this.createdAt = LocalDateTime.now();
+        this.status = "PENDING";
     }
 
     /**
@@ -51,8 +49,8 @@ public class Order {
      * @param orderDto {@link OrderDto} 주문 생성 요청 객체 입니다.
      * @return 고수준 모듈의 Entity 가 저수준 모듈의 수정에 영향이 없도록 변경합니다.
      */
-    public void setOrderNumberFromOrderDto(OrderDto orderDto) {
-        this.orderNumber = orderDto.getOrderNumber();
+    public void setOrderNumberFromOrderDto(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }
 
