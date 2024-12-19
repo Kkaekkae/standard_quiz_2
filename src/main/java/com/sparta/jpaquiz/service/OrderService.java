@@ -21,12 +21,12 @@ public class OrderService {
 
     public Order createOrder(OrderDto orderDto) {
         Order order = new Order();
-        order.setOrderNumberFromOrderDto(orderDto);
+        order.setOrderNumberFromOrderDto(orderDto.getOrderNumber());
         return orderRepository.save(order);
     }
 
     /**
-     * TODO 6: save()를 호출하지 말고, 더티 체킹에 의해 변경 사항이 자동 반영되도록 설정
+     * TODO 6:(written) save()를 호출하지 말고, 더티 체킹에 의해 변경 사항이 자동 반영되도록 설정
      * <hr>
      * HINT: {@link Transactional}<br/>
      * 더티체킹을 활용하면 코드가 간결해지고, 불필요한 I/O를 최고화하며, 트랜잭션 범위에서 일관된 동작 보장 <br/>
@@ -38,15 +38,15 @@ public class OrderService {
 
 //     HINT:  @Transactional
 //     비고:  더티체킹을 활용하면 코드가 간결해지고, 불필요한 I/O를 최고화하며, 트랜잭션 범위에서 일관된 동작 보장
+    @Transactional
     public void updateOrderStatus(Long orderId, String status) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found"));
         order.setStatus(status);
-        orderRepository.save(order); // 이부분을 삭제 할 것!
     }
 
     /**
-     * TODO 3-2(페이징): 페이징 처리 시 Pageable, Page<T>을 사용하여 효율적으로 처리
+     * TODO 3-2(페이징):(written) 페이징 처리 시 Pageable, Page<T>을 사용하여 효율적으로 처리
      * <hr>
      * List 객체의 형태로 리턴되고 있는 것을 {@link Page} 로 변경해주세요.
      *
@@ -55,7 +55,7 @@ public class OrderService {
      */
 
     public Page<Order> getAllOrders(Pageable pageable) {
-        return (Page<Order>) orderRepository.findAll(); // 모든 데이터를 불러오는 비효율적인 메서드
+        return  orderRepository.findAll(pageable); // 모든 데이터를 불러오는 비효율적인 메서드
     }
 }
 

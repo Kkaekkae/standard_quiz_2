@@ -5,6 +5,8 @@ import com.sparta.jpaquiz.entity.Order;
 import com.sparta.jpaquiz.service.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,7 +36,7 @@ public class OrderController {
     // 페이징을 통한 주문 조회
 
     /**
-     * TODO 4(페이징): @PageableDefault를 사용해 페이지 사이즈 및 정렬 기준 기본값 설정
+     * TODO 4(페이징): (written) @PageableDefault를 사용해 페이지 사이즈 및 정렬 기준 기본값 설정
      * <hr/>
      * 조건: 페이지네이션의 Default 값은 아래와 같이 설정합니다. <br/>
      * <b>size</b> = 10</b><br/> <b>sort</b> = "id"<br/> <b>direction</b> = Sort.Direction.ASC<br/>
@@ -43,8 +45,9 @@ public class OrderController {
      * @return JPA의 페이지네이션이 적용된 {@link Order} 객체를 리턴합니다.
      */
     @GetMapping
+    public Page<Order> getAllOrders(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC)
+                                    Pageable pageable) {
 
-    public Page<Order> getAllOrders(Pageable pageable) {
         return orderService.getAllOrders(pageable);
     }
 }
