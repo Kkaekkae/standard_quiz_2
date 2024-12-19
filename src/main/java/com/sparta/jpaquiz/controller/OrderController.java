@@ -44,8 +44,8 @@ public class OrderController {
      */
     @GetMapping
 
-    public Page<Order> getAllOrders(Pageable pageable) {
+    public Page<Order> getAllOrders(
+            @PageableDefault( size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
         return orderService.getAllOrders(pageable);
     }
 }
-

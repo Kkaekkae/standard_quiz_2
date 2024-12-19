@@ -38,11 +38,11 @@ public class OrderService {
 
 //     HINT:  @Transactional
 //     비고:  더티체킹을 활용하면 코드가 간결해지고, 불필요한 I/O를 최고화하며, 트랜잭션 범위에서 일관된 동작 보장
+    @Transactional
     public void updateOrderStatus(Long orderId, String status) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found"));
         order.setStatus(status);
-        orderRepository.save(order); // 이부분을 삭제 할 것!
     }
 
     /**
@@ -55,7 +55,7 @@ public class OrderService {
      */
 
     public Page<Order> getAllOrders(Pageable pageable) {
-        return (Page<Order>) orderRepository.findAll(); // 모든 데이터를 불러오는 비효율적인 메서드
+        return orderRepository.findAll(pageable);
     }
 }
 

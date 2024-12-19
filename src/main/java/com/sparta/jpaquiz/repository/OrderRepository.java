@@ -14,7 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * 조건: 인자에는 Pageable 객체가 존재해야 합니다.
      */
 
-    List<Order> findAll(); // 모든 데이터를 불러오는 비효율적인 메서드
+   Page<Order> findAll(Pageable pageable);
 
 }
 
